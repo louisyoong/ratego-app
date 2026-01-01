@@ -105,11 +105,11 @@ const Header: React.FC<HeaderProps> = ({
           <select
             value={language}
             onChange={(e) => setLanguage(e.target.value as Language)}
-            className="bg-transparent text-xs font-bold text-slate-400 focus:outline-none"
+            className="bg-transparent text-xs font-bold text-slate-400 focus:outline-none max-w-[140px]"
           >
             {langs.map((l) => (
               <option key={l.code} value={l.code}>
-                {l.flag}
+                {l.flag} {l.code.toUpperCase()}
               </option>
             ))}
           </select>
