@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Language, translations } from "../i18n";
 import logo from "../images/logo.png";
 
@@ -16,6 +16,7 @@ const Header: React.FC<HeaderProps> = ({
   setLanguage,
 }) => {
   const t = translations[language];
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const langs: { code: Language; label: string; flag: string }[] = [
     { code: "en", label: "English", flag: "🇺🇸" },
@@ -35,7 +36,10 @@ const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <div
           className="flex items-center gap-2 cursor-pointer"
-          onClick={() => setActiveTab("home")}
+          onClick={() => {
+            setActiveTab("home");
+            setIsMobileMenuOpen(false);
+          }}
         >
           <img src={logo} alt="RateGo logo" className="w-auto h-8 rounded-lg" />
         </div>
@@ -101,11 +105,12 @@ const Header: React.FC<HeaderProps> = ({
         </nav>
 
         {/* Mobile Mini Nav */}
-        <div className="md:hidden flex items-center gap-4">
+        <div className="md:hidden flex items-center gap-3">
           <select
             value={language}
             onChange={(e) => setLanguage(e.target.value as Language)}
-            className="bg-transparent text-xs font-bold text-slate-400 focus:outline-none max-w-[140px]"
+            className="bg-transparent text-xs font-bold text-slate-400 focus:outline-none max-w-[140px] ml-auto"
+            aria-label="Language"
           >
             {langs.map((l) => (
               <option key={l.code} value={l.code}>
@@ -114,16 +119,54 @@ const Header: React.FC<HeaderProps> = ({
             ))}
           </select>
           <button
-            onClick={() => setActiveTab("markets")}
-            className="text-xs font-bold text-slate-400 uppercase tracking-widest"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            className="p-2 rounded-lg border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition-colors"
+            aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 7h16M4 12h16M4 17h16"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
+        className={`md:hidden border-t border-slate-800 bg-slate-900/80 ${
+          isMobileMenuOpen ? "block" : "hidden"
+        }`}
+      >
+        <div className="px-4 py-3 flex flex-col gap-2 text-xs font-bold uppercase tracking-widest text-slate-400">
+          <button
+            onClick={() => {
+              setActiveTab("markets");
+              setIsMobileMenuOpen(false);
+            }}
+            className={`text-left py-2 ${
+              activeTab === "markets" ? "text-white" : "text-slate-400"
+            }`}
           >
             {t.markets}
           </button>
           <button
-            onClick={() => setActiveTab("money-changer")}
-            className="text-xs font-bold text-slate-400 uppercase tracking-widest"
+            onClick={() => {
+              setActiveTab("money-changer");
+              setIsMobileMenuOpen(false);
+            }}
+            className={`text-left py-2 ${
+              activeTab === "money-changer" ? "text-white" : "text-slate-400"
+            }`}
           >
-            Near Me
+            {t.findNearby}
           </button>
         </div>
       </div>
