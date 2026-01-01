@@ -1,0 +1,8 @@
+
+{
+  "name": "RateGo",
+  "description": "RateGo - Smart Currency Tracking and Analysis featuring real-time exchange rates, interactive historical charts, and AI-powered market insights using Gemini.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

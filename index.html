@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>RateGo - Smart Currency Tracking</title>
+
+    <!-- PWA Primary Tags -->
+    <meta name="theme-color" content="#0a0c10" />
+    <meta
+      name="description"
+      content="RateGo - Smart Currency Tracking and AI Market Analysis"
+    />
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="RateGo - Smart Currency Tracking" />
+    <meta
+      property="og:description"
+      content="RateGo - Smart Currency Tracking and AI Market Analysis"
+    />
+    <meta property="og:image" content="/images/og-image.png" />
+    <meta property="og:image:alt" content="RateGo preview image" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="RateGo - Smart Currency Tracking" />
+    <meta
+      name="twitter:description"
+      content="RateGo - Smart Currency Tracking and AI Market Analysis"
+    />
+    <meta name="twitter:image" content="/images/og-image.png" />
+
+    <!-- iOS / Apple Specific Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="RateGo" />
+    <link rel="apple-touch-icon" href="/images/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/android-icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="/images/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/images/favicon-16x16.png"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #0a0c10;
+        color: #e2e8f0;
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        overflow-x: hidden;
+      }
+      .chart-container .recharts-cartesian-grid-horizontal line,
+      .chart-container .recharts-cartesian-grid-vertical line {
+        stroke: #1e293b;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0f172a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #334155;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #475569;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      /* Native-like feel: prevent overscroll bounce on body but allow it on containers */
+      html,
+      body {
+        overscroll-behavior-y: none;
+      }
+      main {
+        overscroll-behavior-y: auto;
+      }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "recharts": "https://esm.sh/recharts@^3.6.0",
+          "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+          "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+          "react/": "https://esm.sh/react@^19.2.3/",
+          "react": "https://esm.sh/react@^19.2.3"
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="/index.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
+    <script>
+      // More resilient Service Worker registration
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          // Check for secure context or localhost (Service Worker requirements)
+          const isSecure =
+            window.location.protocol === "https:" ||
+            window.location.hostname === "localhost";
+
+          if (isSecure) {
+            navigator.serviceWorker
+              .register("./sw.js", { scope: "./" })
+              .then((reg) => {
+                console.log("RateGo: PWA Service Worker registered", reg.scope);
+              })
+              .catch((err) => {
+                // Ignore SecurityError (Origin mismatch) usually caused by cloud preview frames
+                if (err.name === "SecurityError") {
+                  console.warn(
+                    "RateGo: PWA skipped registration (Origin mismatch in preview)."
+                  );
+                } else {
+                  console.error("RateGo: PWA registration failed", err);
+                }
+              });
+          }
+        });
+      }
+    </script>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

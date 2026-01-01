@@ -1,0 +1,24 @@
+
+{
+  "name": "RateGo - Smart Currency Tracking",
+  "short_name": "RateGo",
+  "description": "Smart Currency Tracking and AI Market Analysis",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0a0c10",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2454/2454282.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2454/2454282.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
